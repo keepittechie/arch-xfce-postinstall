@@ -1,9 +1,9 @@
 #!/bin/bash
 
-echo "=== 🧰 KeepItTechie Arch Post-Install Setup ==="
+echo "=== KeepItTechie Arch Post-Install Setup ==="
 
 read -p "Proceed with system setup? (y/N): " confirm
-[[ $confirm != [yY] ]] && echo "❌ Aborted." && exit 1
+[[ $confirm != [yY] ]] && echo "Aborted." && exit 1
 
 # List of modules to run
 modules=(
