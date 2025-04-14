@@ -3,7 +3,12 @@
 read -p "Install Flatpak and setup Flathub? (y/N): " confirm
 [[ $confirm != [yY] ]] && exit 0
 
-sudo pacman -S --noconfirm flatpak
-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+if ! pacman -Q flatpak &>/dev/null; then
+    echo "[+] Installing Flatpak..."
+    sudo pacman -S --noconfirm flatpak
+else
+    echo "[✓] Flatpak already installed."
+fi
 
-echo "[+] Flatpak and Flathub setup complete!"
+echo "[+] Adding Flathub if not already present..."
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo

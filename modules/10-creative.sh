@@ -1,8 +1,15 @@
 #!/bin/bash
 
-read -p "Install creative software (OBS, GIMP, Kdenlive, Audacity)? (y/N): " confirm
+read -p "Install creative tools (OBS, GIMP, Kdenlive, Audacity)? (y/N): " confirm
 [[ $confirm != [yY] ]] && exit 0
 
-sudo pacman -S --noconfirm obs-studio gimp kdenlive audacity handbrake libreoffice-fresh
+packages=(obs-studio gimp kdenlive audacity handbrake libreoffice-fresh)
 
-echo "[+] Creative tools installed!"
+for pkg in "${packages[@]}"; do
+    if ! pacman -Q $pkg &>/dev/null; then
+        echo "[+] Installing $pkg..."
+        sudo pacman -S --noconfirm $pkg
+    else
+        echo "[✓] $pkg already installed."
+    fi
+done
