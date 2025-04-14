@@ -1,0 +1,7 @@
+[Configuration]
+FontName=Monospace 12
+ColorForeground=#EEEEEE
+ColorBackground=#1E1E1E
+ScrollingUnlimited=TRUE
+MiscAlwaysShowTabs=FALSE
+MiscDefaultGeometry=80x24
