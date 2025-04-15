@@ -1,33 +1,36 @@
 #!/bin/bash
 
-echo "=== KeepItTechie Arch Post-Install Setup ==="
+echo "=== 🧰 KeepItTechie Arch Post-Install Setup ==="
 
-read -p "Proceed with system setup? (y/N): " confirm
-[[ $confirm != [yY] ]] && echo "Aborted." && exit 1
+echo "Choose a profile to install:"
+echo "1) Basic - System, XFCE, Dotfiles, Fonts, Extras"
+echo "2) Developer - Basic + Dev Tools + Flatpak"
+echo "3) Gaming - Basic + Gaming + Creative Tools"
+read -p "Enter selection [1-3]: " profile
 
-# List of modules to run
-modules=(
-  "01-system.sh"
-  "02-xfce.sh"
-  "03-dotfiles.sh"
-  "04-extras.sh"
-  "05-aur.sh"
-  "06-fonts.sh"
-  "07-devtools.sh"
-  "08-flatpak.sh"
-  "09-gaming.sh"
-  "10-creative.sh"
-)
+case $profile in
+  1)
+    modules=("01-system.sh" "02-xfce.sh" "03-dotfiles.sh" "04-extras.sh" "05-aur.sh" "06-fonts.sh")
+    ;;
+  2)
+    modules=("01-system.sh" "02-xfce.sh" "03-dotfiles.sh" "04-extras.sh" "05-aur.sh" "06-fonts.sh" "07-devtools.sh" "08-flatpak.sh")
+    ;;
+  3)
+    modules=("01-system.sh" "02-xfce.sh" "03-dotfiles.sh" "04-extras.sh" "05-aur.sh" "06-fonts.sh" "09-gaming.sh" "10-creative.sh")
+    ;;
+  *)
+    echo "❌ Invalid selection. Aborting."
+    exit 1
+    ;;
+esac
 
-# Loop through and run each module
 for module in "${modules[@]}"; do
-    echo -e "\\n--- 🛠 Running $module ---"
+    echo -e "\n--- 🛠 Running $module ---"
     bash "./modules/$module"
 done
 
-# Copy autostart files for conky and picom
-echo -e "\\n[+] Enabling autostart for Conky and Picom..."
+echo -e "\n[+] Enabling autostart for Conky and Picom..."
 mkdir -p ~/.config/autostart
 cp ./autostart/*.desktop ~/.config/autostart/
 
-echo -e "\\n✅ All modules completed! Reboot recommended."
+echo -e "\n✅ Profile installation complete! Reboot recommended."
